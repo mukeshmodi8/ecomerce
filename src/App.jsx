@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Login from "./Pages/Login";
 import Welcome from "./Pages/Welcome";
 import Home from "./Pages/Home";
-import { auth } from "../firebase";
+import { auth } from "../Firebase";
 import Feedback from "./Pages/Feedback";
 import Footer from "./components/Footer";
 import Computers from "./Pages/computers";
