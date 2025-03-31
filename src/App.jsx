@@ -9,7 +9,7 @@ import Home from "./Pages/Home";
 import { auth } from "../Firebase";
 import Feedback from "./Pages/Feedback";
 import Footer from "./components/Footer";
-import Computers from "./Pages/computers";
+import Computers from "./Pages/Computers";
 import Tablets from "./Pages/Tablets";
 import DronesCameras from "./Pages/DronesCameras";
 import Mobiles from "./Pages/Mobiles";
