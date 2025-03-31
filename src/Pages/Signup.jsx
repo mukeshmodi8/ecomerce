@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
-import { auth } from '../../firebase';
+import { auth } from '../../Firebase';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';

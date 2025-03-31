@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 // import { auth } from '../../firebase';
 import Swal from 'sweetalert2';
-import { auth } from '../../firebase';
+import { auth } from '../../Firebase';
 
 const Login = () => {
     const { register, handleSubmit, reset } = useForm();
