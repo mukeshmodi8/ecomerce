@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 import { FaSearch, FaUser, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import logo from '../Pages/image/logo.png';
 import './Header.css';
+import { auth } from '../../Firebase';
 
 const Header = () => {
   function logOut() {
