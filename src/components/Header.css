@@ -1,112 +1,164 @@
 /* Header Container */
 .header {
-    width: 100%;
-    background: #f8f9fa;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Top Section */
+  width: 100%;
+  background: #f8f9fa;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Top Section */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  flex: 1;
+  max-width: 300px;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  border: none;
+  padding: 8px 12px;
+  outline: none;
+  flex: 1;
+}
+
+.search-bar button {
+  background: #6200ea;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* User Actions */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-actions .icon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.user-actions .icon:hover {
+  color: #6200ea;
+}
+
+.cart-count {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* Bottom Navigation */
+.header-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+.header-bottom a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.header-bottom a:hover {
+  color: #6200ea;
+}
+
+.sale {
+  color: red !important;
+  font-weight: bold;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
   .header-top {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    text-align: center;
   }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    max-width: 100px;
-    height: auto;
-    margin-right: 10px;
-  }
-  
-  .brand {
-    font-size: 24px;
-    font-weight: bold;
-    color: #000;
-  }
-  
-  /* Search Bar */
+
   .search-bar {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    overflow: hidden;
+    width: 90%;
+    max-width: none;
+    margin: 10px 0;
   }
-  
-  .search-bar input {
-    border: none;
-    padding: 8px 12px;
-    outline: none;
-    flex: 1;
-  }
-  
-  .search-bar button {
-    background: #6200ea;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
-  /* User Actions */
+
   .user-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
   }
-  
-  .user-actions .icon {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #000;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .user-actions .icon:hover {
-    color: #6200ea;
-  }
-  
-  .cart-count {
-    background: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-    margin-left: 5px;
-  }
-  
-  /* Bottom Navigation */
+
   .header-bottom {
+    flex-direction: column;
+    align-items: center;
+    display: none;
+  }
+
+  .header-bottom.open {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding-top: 10px;
   }
-  
-  .header-bottom a {
-    text-decoration: none;
+
+  .menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
     color: #000;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    position: absolute;
+    top: 15px;
+    right: 20px;
   }
-  
-  .header-bottom a:hover {
-    color: #6200ea;
+}
+
+@media (min-width: 769px) {
+  .menu-btn {
+    display: none;
   }
-  
-  .sale {
-    color: red !important;
-    font-weight: bold;
-  }
-  
+}
