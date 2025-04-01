@@ -1,12 +1,21 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { FaSearch, FaUser, FaHeart, FaShoppingCart } from 'react-icons/fa';
-import logo from '../Pages/image/logo.png';
-import './Header.css';
-import { auth } from '../../Firebase';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import {
+  FaSearch,
+  FaUser,
+  FaHeart,
+  FaShoppingCart,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
+import logo from "../Pages/image/logo.png";
+import "./Header.css";
+import { auth } from "../../Firebase";
 
 const Header = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   function logOut() {
     if (window.confirm("Are you sure you want to logout?")) {
       signOut(auth)
@@ -24,12 +33,14 @@ const Header = () => {
       <div className="header-top">
         <div className="logo-container">
           <img src={logo} alt="TechShed" className="logo" />
-          <span className="brand text-primary">Arbuda </span>
+          <span className="brand text-primary">Arbuda</span>
           <span className="brand m-lg-2">Mobile</span>
         </div>
         <div className="search-bar">
           <input type="text" placeholder="Search..." />
-          <button><FaSearch /></button>
+          <button>
+            <FaSearch />
+          </button>
         </div>
         <div className="user-actions">
           <NavLink to="/wishlist" className="icon wishlist">
@@ -43,8 +54,15 @@ const Header = () => {
             <FaUser /> <span>Sign In</span>
           </NavLink>
         </div>
+        <button
+          className="menu-icon"
+          onClick={() => setDropdownOpen(!dropdownOpen)}
+        >
+          {dropdownOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
-      <div className="header-bottom">
+
+      <div className={`header-bottom ${dropdownOpen ? "open" : ""}`}>
         <NavLink to="/home">Home</NavLink>
         <NavLink to="/computer">Computers & Laptop</NavLink>
         <NavLink to="/tablets">Tablets</NavLink>
@@ -53,7 +71,9 @@ const Header = () => {
         <NavLink to="/mobile">Mobile</NavLink>
         <NavLink to="/tv">T.V & Home Cinema</NavLink>
         <NavLink to="/wearable-tech">Wearable Tech</NavLink>
-        <NavLink to="/sale" className="sale">Sale</NavLink>
+        <NavLink to="/sale" className="sale">
+          Sale
+        </NavLink>
       </div>
     </nav>
   );
