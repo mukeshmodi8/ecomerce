@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useCart } from "../Pages/CartContext";
+// import Sale from "./Sale";
+
+
+
 
 import {
   FaSearch,
@@ -83,8 +87,11 @@ const Header = () => {
   <NavLink to="/mobile" onClick={() => setDropdownOpen(false)}>Mobile</NavLink>
   <NavLink to="/tv" onClick={() => setDropdownOpen(false)}>T.V & Home Cinema</NavLink>
   <NavLink to="/wearable-tech" onClick={() => setDropdownOpen(false)}>Wearable Tech</NavLink>
+  {/* <NavLink to="/Sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink> */}
   <NavLink to="/sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink>
+
 </div>
+
 
     </nav>
   );

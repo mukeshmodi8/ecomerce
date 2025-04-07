@@ -17,6 +17,7 @@ import TVHomeCinema from "./Pages/TVHomeCinema";
 import { CartProvider } from "./Pages/CartContext";
 import Cart from "./Pages/Cart";
 import ErrorBoundary from "./Pages/ErrorBoundary";
+import Sale from "./Pages/Sale";
 
 function AppContent({ user }) {
   const location = useLocation();
@@ -67,11 +68,12 @@ function AppContent({ user }) {
           path="/tv"
           element={user ? <TVHomeCinema /> : <Navigate to="/login" />}
         />
-        {/* ✅ Unknown route → redirect to login or home */}
+       
         <Route
           path="*"
           element={<Navigate to={user ? "/home" : "/login"} />}
         />
+        <Route path="/sale" element={<Sale />} />
       </Routes>
 
       {!isAuthPage && <Footer />}
