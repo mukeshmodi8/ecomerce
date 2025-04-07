@@ -166,30 +166,32 @@ const Home = () => {
 
       {/* Product Cards Section */}
 
-      <section className=" product container my-5">
-        <h2 className="text-center mb-4 text-primary">Arbuda Mobile Products</h2>
-        <div className="row mx-0">
-          {products.map((product) => (
-            <div key={product.id} className="col-lg-4 col-md-6 mb-4">
-              <div className="card p-5 shadow-lg">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  style={{ height: "300px", objectFit: "cover" }}
-                />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{product.name}</h5>
-                  <h6>Price : ${product.price}</h6>
-                  <button className="btn btn-success mx-2">Add to Cart</button>
-                  <a href="#" className="btn btn-primary product-btn">
-                    Buy Now
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+      <section className="product container my-5">
+  <h2 className="text-center mb-4 text-primary">Arbuda Mobile Products</h2>
+  <div className="row mx-0">
+    {products.map((product) => (
+      <div key={product.id} className="col-lg-4 col-md-6 mb-4">
+      <div className="card product-card p-3 shadow-lg h-100 d-flex flex-column justify-content-between">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-img card-img-top"
+        />
+        <div className="card-body text-center d-flex flex-column justify-content-between">
+          <h5 className="card-title">{product.name}</h5>
+          <h6>Price : ${product.price}</h6>
+          <div className="d-flex justify-content-center gap-3 mt-3">
+            <button className="btn btn-success">Add to Cart</button>
+            <a href="#" className="btn btn-primary product-btn">Buy Now</a>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
+    
+    ))}
+  </div>
+</section>
+
 
       <Feedback></Feedback>
 
