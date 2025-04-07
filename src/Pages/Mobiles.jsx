@@ -57,7 +57,7 @@ const Mobiles = () => {
                 Their satisfaction is our greatest motivation, and we take pride in living up to their trust.
             </h6>
 
-            <div className="cart-section text-center mb-4">
+            {/* <div className="cart-section text-center mb-4">
                 <h4>Your Cart ({cart.length} items)</h4>
                 {cart.length === 0 ? (
                     <p className="text-danger">Your cart is empty!</p>
@@ -71,7 +71,7 @@ const Mobiles = () => {
                         ))}
                     </ul>
                 )}
-            </div>
+            </div> */}
 
             <div className="row mt-5">
                 {products.map((product) => (

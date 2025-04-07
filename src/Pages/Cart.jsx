@@ -1,6 +1,8 @@
-// Cart.jsx
 import React from "react";
 import { useCart } from "./CartContext";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   const { cart, removeFromCart } = useCart();
@@ -9,22 +11,48 @@ const Cart = () => {
     return cart.reduce((total, item) => total + item.price, 0).toFixed(2);
   };
 
+  const handleRemove = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Do you really want to remove "${item.name}" from the cart?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeFromCart(item.id);
+        toast.error(`${item.name} removed from cart!`);
+      }
+    });
+  };
+
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4 text-primary">🛒 Your Shopping Cart</h2>
-      
+
       {cart.length === 0 ? (
         <p className="text-center text-danger">Your cart is empty!</p>
       ) : (
         <>
           <ul className="list-group mb-4">
             {cart.map((item) => (
-              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+              <li
+                key={item.id}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
                 <div>
-                  <strong>{item.name}</strong><br />
+                  <strong>{item.name}</strong>
+                  <br />
                   <small>Rs.{item.price.toFixed(2)}</small>
                 </div>
-                <button className="btn btn-sm btn-danger" onClick={() => removeFromCart(item.id)}>Remove</button>
+                <button
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleRemove(item)}
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
@@ -34,6 +62,8 @@ const Cart = () => {
           </div>
         </>
       )}
+
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 };
