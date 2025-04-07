@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { auth } from '../../firebase';
 import Swal from 'sweetalert2';
 import { auth } from '../../Firebase';
@@ -30,31 +30,32 @@ const Login = () => {
     return (
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="col-12 col-md-8 col-lg-6 p-4 rounded shadow bg-white text-center">
-                
+
                 <h2 className="text-center text-primary mb-4">Please Login</h2>
-                
+
                 <form onSubmit={handleSubmit(login)}>
                     <div className="mb-3">
-                        <input 
-                            type="email" 
-                            className="form-control" 
-                            {...register('email', { required: true })} 
-                            placeholder="Enter Your Email" 
+                        <input
+                            type="email"
+                            className="form-control"
+                            {...register('email', { required: true })}
+                            placeholder="Enter Your Email"
                         />
                     </div>
                     <div className="mb-3">
-                        <input 
-                            type="password" 
-                            className="form-control" 
-                            {...register('password', { required: true })} 
-                            placeholder="Enter Your Password" 
+                        <input
+                            type="password"
+                            className="form-control"
+                            {...register('password', { required: true })}
+                            placeholder="Enter Your Password"
                         />
                     </div>
 
                     <p>
-                        Don't have an account? 
-                        <a className="text-primary text-decoration-none ms-1" href="/signup">Signup</a>
+                        Don't have an account?
+                        <Link className="text-primary text-decoration-none ms-1" to="/signup">Signup</Link>
                     </p>
+
 
                     <button className="btn btn-outline-success w-100" type="submit">Login</button>
                 </form>

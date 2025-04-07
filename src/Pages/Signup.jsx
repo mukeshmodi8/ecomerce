@@ -4,6 +4,8 @@ import { auth } from '../../Firebase';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 
 const Signup = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -37,25 +39,26 @@ const Signup = () => {
                         <h2 className="text-primary mb-4">Create Account</h2>
                         <form onSubmit={handleSubmit(handleSignup)}>
                             <div className="mb-3">
-                                <input 
-                                    type="email" 
-                                    className="form-control" 
-                                    {...register('email', { required: true })} 
-                                    placeholder="Enter Your Email" 
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    {...register('email', { required: true })}
+                                    placeholder="Enter Your Email"
                                 />
                             </div>
                             <div className="mb-3">
-                                <input 
-                                    type="password" 
-                                    className="form-control" 
-                                    {...register('password', { required: true })} 
-                                    placeholder="Enter Your Password" 
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    {...register('password', { required: true })}
+                                    placeholder="Enter Your Password"
                                 />
                             </div>
                             <p>
-                                Already have an account? 
-                                <link className="text-primary text-decoration-none ms-1" href="/login">Login</link>
+                                Already have an account?
+                                <Link className="text-primary text-decoration-none ms-1" to="/login">Login</Link>
                             </p>
+
                             <button className="btn btn-outline-primary w-100" type="submit">Signup</button>
                         </form>
                     </div>

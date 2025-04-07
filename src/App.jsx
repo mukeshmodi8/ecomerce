@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from "./Pages/Signup";
 import Header from "./components/Header";
@@ -16,9 +16,71 @@ import Mobiles from "./Pages/Mobiles";
 import TVHomeCinema from "./Pages/TVHomeCinema";
 import { CartProvider } from "./Pages/CartContext";
 import Cart from "./Pages/Cart";
+import ErrorBoundary from "./Pages/ErrorBoundary";
+
+function AppContent({ user }) {
+  const location = useLocation();
+
+  // ✅ अगर ये pages हैं तो header/footer ना दिखाएँ
+  const authPages = ["/", "/login", "/signup"];
+  const isAuthPage = authPages.includes(location.pathname);
+
+  return (
+    <>
+      {!isAuthPage && <Header />}
+
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* ✅ Protected Routes */}
+        <Route
+          path="/home"
+          element={user ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/feedback"
+          element={user ? <Feedback /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/computer"
+          element={user ? <Computers /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/tablets"
+          element={user ? <Tablets /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/drones"
+          element={user ? <DronesCameras /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/mobile"
+          element={user ? <Mobiles /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/cart"
+          element={user ? <Cart /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/tv"
+          element={user ? <TVHomeCinema /> : <Navigate to="/login" />}
+        />
+        {/* ✅ Unknown route → redirect to login or home */}
+        <Route
+          path="*"
+          element={<Navigate to={user ? "/home" : "/login"} />}
+        />
+      </Routes>
+
+      {!isAuthPage && <Footer />}
+    </>
+  );
+}
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -30,24 +92,11 @@ function App() {
 
   return (
     <CartProvider>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={user ? <Navigate to="/welcome" /> : <Login />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/computer" element={<Computers />} />
-          <Route path="/tablets" element={<Tablets />} />
-          <Route path="/drones" element={<DronesCameras />} />
-          <Route path="/mobile" element={<Mobiles />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/tv" element={<TVHomeCinema />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <ErrorBoundary>
+        <Router>
+          <AppContent user={user} />
+        </Router>
+      </ErrorBoundary>
     </CartProvider>
   );
 }
