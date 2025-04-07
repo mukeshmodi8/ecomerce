@@ -36,12 +36,14 @@ const Header = () => {
           <span className="brand text-primary">Arbuda</span>
           <span className="brand m-lg-2">Mobile</span>
         </div>
+
         <div className="search-bar">
           <input type="text" placeholder="Search..." />
           <button>
             <FaSearch />
           </button>
         </div>
+
         <div className="user-actions">
           <NavLink to="/wishlist" className="icon wishlist">
             <FaHeart /> <span>Wishlist</span>
@@ -54,6 +56,7 @@ const Header = () => {
             <FaUser /> <span>Sign In</span>
           </NavLink>
         </div>
+
         <button
           className="menu-icon"
           onClick={() => setDropdownOpen(!dropdownOpen)}
