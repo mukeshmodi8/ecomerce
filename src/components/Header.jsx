@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { useCart } from "../Pages/CartContext";
+
 import {
   FaSearch,
   FaUser,
@@ -14,6 +16,7 @@ import "./Header.css";
 import { auth } from "../../Firebase";
 
 const Header = () => {
+  const { cart } = useCart();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   function logOut() {
@@ -52,8 +55,9 @@ const Header = () => {
   <NavLink to="/cart" className="btn btn-outline-success d-flex align-items-center gap-2 position-relative">
     <FaShoppingCart /> <span>Cart</span>
     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
-      0
-    </span>
+  {cart.length}
+</span>
+
   </NavLink>
 
   <NavLink to="/login" className="btn btn-outline-dark d-flex align-items-center gap-2">

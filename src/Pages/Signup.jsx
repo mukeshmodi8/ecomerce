@@ -54,7 +54,7 @@ const Signup = () => {
                             </div>
                             <p>
                                 Already have an account? 
-                                <a className="text-primary text-decoration-none ms-1" href="/login">Login</a>
+                                <link className="text-primary text-decoration-none ms-1" href="/login">Login</link>
                             </p>
                             <button className="btn btn-outline-primary w-100" type="submit">Signup</button>
                         </form>

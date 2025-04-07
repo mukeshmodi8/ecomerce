@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./mobiles.css"; // ✅ External CSS Import
+import "./mobiles.css"; 
+import { useCart } from "../Pages/CartContext";
 
 const Mobiles = () => {
-    const [cart, setCart] = useState([]);
+    const { cart, addToCart } = useCart();
 
-    const addToCart = (product) => {
-        
-        const existingProduct = cart.find((item) => item.id === product.id);
+    const handleAddToCart = (product) => {
+        const isAlreadyInCart = cart.some((item) => item.id === product.id);
 
-        if (existingProduct) {
+        if (isAlreadyInCart) {
             alert(`${product.name} is already in the cart!`);
         } else {
-            setCart([...cart, product]);
+            addToCart(product); 
             alert(`${product.name} added to cart!`);
         }
-    }
+    };
 
     const products = [
         { id: 1, name: "iPhone 14 Pro Max", price: 149999.00, image: "https://png.monster/wp-content/uploads/2023/09/PNG.monsterapple-iphone-15-pro-photo%20png.png" },
@@ -46,21 +46,23 @@ const Mobiles = () => {
                 Our customers' feedback reflects the quality and reliability of our brand.<br />
                 Their satisfaction is our greatest motivation, and we take pride in living up to their trust.
             </h6>
-            <div className="cart-section text text-center mb-4">
-                <h4>your Cart ({cart.length}items)</h4>
+
+            <div className="cart-section text-center mb-4">
+                <h4>Your Cart ({cart.length} items)</h4>
                 {cart.length === 0 ? (
                     <p className="text-danger">Your cart is empty!</p>
                 ) : (
                     <ul className="list-group">
-                        {cart.map((item, index) => (
+                        {cart.map((item) => (
                             <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
                                 {item.name}
                                 <span className="badge bg-primary rounded-pill">Rs.{item.price.toFixed(2)}</span>
                             </li>
                         ))}
                     </ul>
-                    )}
+                )}
             </div>
+
             <div className="row mt-5">
                 {products.map((product) => (
                     <div key={product.id} className="col-md-4 mb-4">
@@ -69,7 +71,7 @@ const Mobiles = () => {
                             <div className="card-body">
                                 <h5 className="card-title">{product.name}</h5>
                                 <h6>Price : Rs.{product.price.toFixed(2)}</h6>
-                                <button onClick={() => addToCart(product)} className="btn btn-success mx-2">Add to Cart</button>
+                                <button onClick={() => handleAddToCart(product)} className="btn btn-success mx-2">Add to Cart</button>
                                 <a href="#" className="btn btn-primary product-btn">Buy Now</a>
                             </div>
                         </div>
