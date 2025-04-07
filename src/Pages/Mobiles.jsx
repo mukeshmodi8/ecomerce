@@ -1,7 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./mobiles.css"; 
+import "./mobiles.css";
 import { useCart } from "../Pages/CartContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Mobiles = () => {
     const { cart, addToCart } = useCart();
@@ -10,10 +12,18 @@ const Mobiles = () => {
         const isAlreadyInCart = cart.some((item) => item.id === product.id);
 
         if (isAlreadyInCart) {
-            alert(`${product.name} is already in the cart!`);
+            toast.warning(`${product.name} Is Already in The Cart! `, {
+                position: "top-center",
+                autoClose: 2000,
+                theme: "colored",
+            });
         } else {
-            addToCart(product); 
-            alert(`${product.name} added to cart!`);
+            addToCart(product);
+            toast.success(`${product.name} Added To cart! `, {
+                position: "top-center",
+                autoClose: 2000,
+                theme: "colored",
+            });
         }
     };
 
@@ -78,6 +88,9 @@ const Mobiles = () => {
                     </div>
                 ))}
             </div>
+
+           
+            <ToastContainer />
         </div>
     );
 };

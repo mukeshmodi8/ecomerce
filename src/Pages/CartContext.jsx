@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Create context
+
 const CartContext = createContext();
 
-// Provider component
+
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
       alert(`${product.name} is already in the cart!`);
     } else {
       setCart([...cart, product]);
-      alert(`${product.name} added to cart!`);
+    //   alert(`${product.name} added to cart!`);
     }
   };
 
@@ -30,5 +30,5 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the context
+
 export const useCart = () => useContext(CartContext);
