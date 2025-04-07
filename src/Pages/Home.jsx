@@ -9,6 +9,8 @@ import shop from '../Pages/image/shop.jpg';
 import Feedback from "./Feedback";
 import { useCart } from "./CartContext";
 import "./Home.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const { cart, addToCart } = useCart();
@@ -17,10 +19,10 @@ const Home = () => {
     const isAlreadyInCart = cart.some((item) => item.id === product.id);
 
     if (isAlreadyInCart) {
-      alert(`${product.name} is already in the cart!`);
+      toast.warning(`${product.name} is already in the cart!`);
     } else {
       addToCart(product);
-      alert(`${product.name} added to cart!`);
+      toast.success(`${product.name} added to cart!`);
     }
   };
 
@@ -180,6 +182,9 @@ const Home = () => {
       </section>
 
       <Feedback />
+
+      {/* Toast Notification */}
+      <ToastContainer position="top-center" autoClose={2000} />
     </>
   );
 };
