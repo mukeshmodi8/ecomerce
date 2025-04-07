@@ -186,45 +186,51 @@
 }
 .header-bottom a {
   position: relative;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: #000;
+  display: inline-block;
+  padding: 10px 25px;
+  margin: 10px;
+  color: #060505;
   font-weight: 500;
-  transition: color 0.3s;
+  text-decoration: none;
+  border-radius: 50px;
+  background-color: transparent;
+  border: 2px solid #424bb0; /* subtle static border */
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* Live glowing animated circle */
 .header-bottom a::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 50%;
-  left: -16px;
-  transform: translateY(-50%);
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #00f2ff, #00ff6a, #ff005c, #f7ff00, #00f2ff);
-  background-size: 300% 300%;
-  animation: liveGlow 3s linear infinite;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50px;
+  background: conic-gradient(
+    from 0deg,
+    #ffffff10,
+    #ffffff80,
+    #ffffff10
+  );
+  animation: spinBorder 4s linear infinite;
+  z-index: -1;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  padding: 2px;
 }
 
-@keyframes liveGlow {
+@keyframes spinBorder {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    transform: rotate(0deg);
   }
   100% {
-    background-position: 0% 50%;
+    transform: rotate(360deg);
   }
-}
-
-/* SALE link - special color glow */
-.header-bottom a.sale::before {
-  background: linear-gradient(45deg, #ff0000, #ff9900, #ff00ff, #ff0000);
-  background-size: 300% 300%;
-  animation: liveGlow 3s linear infinite;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
 }
