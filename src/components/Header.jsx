@@ -75,15 +75,15 @@ const Header = () => {
       </div>
 
       <div className={`header-bottom ${dropdownOpen ? "open" : ""}`}>
-  <NavLink to="/home">Home</NavLink>
-  <NavLink to="/computer">Computers & Laptop</NavLink>
-  <NavLink to="/tablets">Tablets</NavLink>
-  <NavLink to="/drones">Drones & Cameras</NavLink>
-  <NavLink to="/audio">Audio</NavLink>
-  <NavLink to="/mobile">Mobile</NavLink>
-  <NavLink to="/tv">T.V & Home Cinema</NavLink>
-  <NavLink to="/wearable-tech">Wearable Tech</NavLink>
-  <NavLink to="/sale" className="sale">Sale</NavLink>
+  <NavLink to="/home" onClick={() => setDropdownOpen(false)}>Home</NavLink>
+  <NavLink to="/computer" onClick={() => setDropdownOpen(false)}>Computers & Laptop</NavLink>
+  <NavLink to="/tablets" onClick={() => setDropdownOpen(false)}>Tablets</NavLink>
+  <NavLink to="/drones" onClick={() => setDropdownOpen(false)}>Drones & Cameras</NavLink>
+  <NavLink to="/audio" onClick={() => setDropdownOpen(false)}>Audio</NavLink>
+  <NavLink to="/mobile" onClick={() => setDropdownOpen(false)}>Mobile</NavLink>
+  <NavLink to="/tv" onClick={() => setDropdownOpen(false)}>T.V & Home Cinema</NavLink>
+  <NavLink to="/wearable-tech" onClick={() => setDropdownOpen(false)}>Wearable Tech</NavLink>
+  <NavLink to="/sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink>
 </div>
 
     </nav>
