@@ -133,11 +133,11 @@ const Header = () => {
 
       <div className={`header-bottom ${dropdownOpen ? "open" : ""}`}>
         <NavLink to="/home" onClick={() => setDropdownOpen(false)}>Home</NavLink>
+        <NavLink to="/mobile" onClick={() => setDropdownOpen(false)}>Mobile</NavLink>
         <NavLink to="/computer" onClick={() => setDropdownOpen(false)}>Computers & Laptop</NavLink>
         <NavLink to="/tablets" onClick={() => setDropdownOpen(false)}>Tablets</NavLink>
         <NavLink to="/drones" onClick={() => setDropdownOpen(false)}>Drones & Cameras</NavLink>
         <NavLink to="/audio" onClick={() => setDropdownOpen(false)}>Audio</NavLink>
-        <NavLink to="/mobile" onClick={() => setDropdownOpen(false)}>Mobile</NavLink>
         <NavLink to="/tv" onClick={() => setDropdownOpen(false)}>T.V & Home Cinema</NavLink>
         <NavLink to="/wearable-tech" onClick={() => setDropdownOpen(false)}>Wearable Tech</NavLink>
         <NavLink to="/sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink>
