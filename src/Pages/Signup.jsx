@@ -8,7 +8,7 @@ import {
   import { useNavigate } from 'react-router-dom';
   import { useForm } from 'react-hook-form';
   import { Link } from 'react-router-dom';
-import { googleProvider } from '../../Firebase';
+import { auth, googleProvider } from '../../Firebase';
   
   const Signup = () => {
     const { register, handleSubmit, reset } = useForm();
