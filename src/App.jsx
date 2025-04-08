@@ -19,6 +19,7 @@ import Cart from "./Pages/Cart";
 import ErrorBoundary from "./Pages/ErrorBoundary";
 import Sale from "./Pages/Sale";
 import AuthProvider from "./Pages/AuthProvider";
+import Profile from "./Pages/Profile";
 
 function AppContent({ user }) {
   const location = useLocation();
@@ -75,6 +76,7 @@ function AppContent({ user }) {
           element={<Navigate to={user ? "/home" : "/login"} />}
         />
         <Route path="/sale" element={<Sale />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
 
       {!isAuthPage && <Footer />}

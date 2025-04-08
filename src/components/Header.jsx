@@ -22,9 +22,16 @@ const Header = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      if (user) {
+        setCurrentUser({
+          name: user.displayName || "User", 
+          email: user.email,
+        });
+      } else {
+        setCurrentUser(null);
+      }
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -94,28 +101,29 @@ const Header = () => {
 
           {currentUser ? (
             <div className="dropdown">
-              <button
-                className="btn btn-outline-dark dropdown-toggle"
-                type="button"
-                id="profileDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <FaUser /> {currentUser.email.split("@")[0]}
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="profileDropdown">
-                <li>
-                  <NavLink className="dropdown-item" to="/profile">
-                    My Profile
-                  </NavLink>
-                </li>
-                <li>
-                  <button className="dropdown-item" onClick={logOut}>
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
+  <button
+    className="btn btn-outline-dark dropdown-toggle"
+    type="button"
+    id="profileDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <FaUser className="text-primary" /> Hello   {currentUser.name}
+  </button>
+  <ul className="dropdown-menu" aria-labelledby="profileDropdown">
+    <li>
+      <NavLink className="dropdown-item" to="/profile">
+        My Profile
+      </NavLink>
+    </li>
+    <li>
+      <button className="dropdown-item" onClick={logOut}>
+        Logout
+      </button>
+    </li>
+  </ul>
+</div>
+
           ) : (
             <NavLink to="/login" className="btn btn-outline-dark d-flex align-items-center gap-2">
               <FaUser /> <span>Sign In</span>
