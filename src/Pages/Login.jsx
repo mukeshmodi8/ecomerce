@@ -11,7 +11,7 @@ const Login = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    // ✅ Google login handler
+    
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, GoogleAuthProvider);

@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import summer from "../Pages/image/summer.jpg";
-import shop from '../Pages/image/shop.jpg';
+import shop from "../Pages/image/shop.jpg";
 import Feedback from "./Feedback";
 import { useCart } from "./CartContext";
 import "./Home.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaQuoteLeft, FaStar } from "react-icons/fa";
 
 const Home = () => {
   const { cart, addToCart } = useCart();
+
+  const [name, setName] = useState("");
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(5);
+  const [userReviews, setUserReviews] = useState([]);
 
   const handleAddToCart = (product) => {
     const isAlreadyInCart = cart.some((item) => item.id === product.id);
@@ -22,6 +28,22 @@ const Home = () => {
       addToCart(product);
       toast.success(`${product.name} added to cart!`);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newReview = {
+      name,
+      review,
+      rating: parseInt(rating),
+    };
+
+    setUserReviews([...userReviews, newReview]);
+    setName("");
+    setReview("");
+    setRating(5);
+    toast.success("Thanks for your feedback!");
   };
 
   const settings = {
@@ -76,6 +98,24 @@ const Home = () => {
       name: "JYX Sound Speaker",
       price: 2400.0,
       image: "https://m.media-amazon.com/images/I/713TUYjagQL.jpg",
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Priya Patel",
+      review: "Amazing service and quick delivery! Highly recommended.",
+      rating: 5,
+    },
+    {
+      name: "Rahul Mehta",
+      review: "Great prices and awesome support from Arbuda team!",
+      rating: 4,
+    },
+    {
+      name: "Sneha Joshi",
+      review: "I bought my phone from here. Totally satisfied!",
+      rating: 5,
     },
   ];
 
@@ -135,7 +175,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Arbuda Mobile Section */}
+      {/* About Section */}
       <section className="about-section container my-5 py-5">
         <div className="row align-items-center mx-0">
           <div className="col-md-6 mb-4 mb-md-0">
@@ -155,7 +195,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Product Cards Section */}
+      {/* Products Section */}
       <section className="product container my-5">
         <h2 className="text-center mb-4 text-primary">Arbuda Mobile Products</h2>
         <div className="row mx-0">
@@ -179,10 +219,82 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Testimonials */}
+     
+
+      {/* Toast Notification */}
+      <ToastContainer position="top-center" autoClose={2000} />
       <Feedback />
 
+      {/* User Review Section */}
+      {userReviews.length > 0 && (
+        <section className="testimonials-section">
+          <h2 className="section-title">Recent Customer Reviews</h2>
+          <div className="testimonials-section">
+        <div className="testimonial-cards">
+          {testimonials.map((item, index) => (
+            <div className="testimonial-card" key={index}>
+              <FaQuoteLeft className="quote-icon" />
+              <p className="review-text">"{item.review}"</p>
+              <div className="stars">
+                {[...Array(item.rating)].map((_, i) => (
+                  <FaStar key={i} className="star" />
+                ))}
+              </div>
+              <h5 className="customer-name">- {item.name}</h5>
+            </div>
+          ))}
+        </div>
+      </div>
+          <div className="testimonial-cards">
+            {userReviews.map((item, index) => (
+              <div className="testimonial-card" key={index}>
+                <FaQuoteLeft className="quote-icon" />
+                <p className="review-text">"{item.review}"</p>
+                <div className="stars">
+                  {[...Array(item.rating)].map((_, i) => (
+                    <FaStar key={i} className="star" />
+                  ))}
+                </div>
+                <h5 className="customer-name">- {item.name}</h5>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Add Review Form */}
+      <div className="add-review container my-5">
+        <h2 className="text-center mb-4">⭐ Add Your Review</h2>
+        <form className="glass-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <textarea
+            placeholder="Write your review here..."
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+            required
+          />
+          <select
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          >
+            {[1, 2, 3, 4, 5].map((star) => (
+              <option key={star} value={star}>{star} Star</option>
+            ))}
+          </select>
+          <button type="submit" className="btn btn-success mt-3">
+            <i className="fa fa-paper-plane me-2"></i>Submit Review
+          </button>
+        </form>
+      </div>
+
       
-      <ToastContainer position="top-center" autoClose={2000} />
     </>
   );
 };

@@ -3,7 +3,7 @@
     font-family: Arial, sans-serif;
 }
 .welcome-container {
-    background: linear-gradient(135deg, #ffffff, #fefefe);
+    background: linear-gradient(135deg, #f4f6f8, #fefefe);
     animation: fadeIn 1.5s ease-in-out;
   }
   
@@ -11,7 +11,7 @@
   .welcome-title {
     /* font-size: 2.5rem; */
     font-weight: bold;
-    color: #62b2f0;
+    /* color: #62b2f0; */
     text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
     animation: textPop 1.2s ease-in-out;
   }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Signup from "./Pages/Signup";
 import Header from "./components/Header";
 import Login from "./Pages/Login";
@@ -31,6 +32,7 @@ function AppContent({ user }) {
   return (
     <>
       {!isAuthPage && <Header />}
+      
 
       <Routes>
         <Route path="/" element={<Welcome />} />
