@@ -18,6 +18,7 @@ import { CartProvider } from "./Pages/CartContext";
 import Cart from "./Pages/Cart";
 import ErrorBoundary from "./Pages/ErrorBoundary";
 import Sale from "./Pages/Sale";
+import AuthProvider from "./Pages/AuthProvider";
 
 function AppContent({ user }) {
   const location = useLocation();
@@ -95,9 +96,11 @@ function App() {
   return (
     <CartProvider>
       <ErrorBoundary>
+      <AuthProvider>
         <Router>
           <AppContent user={user} />
         </Router>
+        </AuthProvider>
       </ErrorBoundary>
     </CartProvider>
   );

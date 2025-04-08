@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { useCart } from "../Pages/CartContext";
-// import Sale from "./Sale";
-
-
-
-
 import {
   FaSearch,
   FaUser,
@@ -15,6 +10,7 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import Swal from 'sweetalert2';
 import logo from "../Pages/image/logo.png";
 import "./Header.css";
 import { auth } from "../../Firebase";
@@ -22,17 +18,49 @@ import { auth } from "../../Firebase";
 const Header = () => {
   const { cart } = useCart();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   function logOut() {
-    if (window.confirm("Are you sure you want to logout?")) {
-      signOut(auth)
-        .then(() => {
-          window.location.href = "/";
-        })
-        .catch((err) => {
-          console.error("Error during sign-out:", err);
-        });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You will be logged out!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut(auth)
+          .then(() => {
+            Swal.fire({
+              title: 'Logged out!',
+              text: 'You have been successfully logged out.',
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false,
+            }).then(() => {
+              window.location.href = "/";
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong during logout!',
+            });
+            console.error("Error during sign-out:", err);
+          });
+      }
+    });
   }
 
   return (
@@ -52,23 +80,48 @@ const Header = () => {
         </div>
 
         <div className="user-actions d-flex gap-2">
-  <NavLink to="/wishlist" className="btn btn-outline-primary d-flex align-items-center gap-2">
-    <FaHeart /> <span>Wishlist</span>
-  </NavLink>
 
-  <NavLink to="/cart" className="btn btn-outline-success d-flex align-items-center gap-2 position-relative">
-    <FaShoppingCart /> <span>Cart</span>
-    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
-  {cart.length}
-</span>
+          <NavLink to="/wishlist" className="btn btn-outline-primary d-flex align-items-center gap-2">
+            <FaHeart /> <span>Wishlist</span>
+          </NavLink>
 
-  </NavLink>
+          <NavLink to="/cart" className="btn btn-outline-success d-flex align-items-center gap-2 position-relative">
+            <FaShoppingCart /> <span>Cart</span>
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+              {cart.length}
+            </span>
+          </NavLink>
 
-  <NavLink to="/login" className="btn btn-outline-dark d-flex align-items-center gap-2">
-    <FaUser /> <span>Sign In</span>
-  </NavLink>
-</div>
-
+          {currentUser ? (
+            <div className="dropdown">
+              <button
+                className="btn btn-outline-dark dropdown-toggle"
+                type="button"
+                id="profileDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <FaUser /> {currentUser.email.split("@")[0]}
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="profileDropdown">
+                <li>
+                  <NavLink className="dropdown-item" to="/profile">
+                    My Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <button className="dropdown-item" onClick={logOut}>
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <NavLink to="/login" className="btn btn-outline-dark d-flex align-items-center gap-2">
+              <FaUser /> <span>Sign In</span>
+            </NavLink>
+          )}
+        </div>
 
         <button
           className="menu-icon"
@@ -79,20 +132,16 @@ const Header = () => {
       </div>
 
       <div className={`header-bottom ${dropdownOpen ? "open" : ""}`}>
-  <NavLink to="/home" onClick={() => setDropdownOpen(false)}>Home</NavLink>
-  <NavLink to="/computer" onClick={() => setDropdownOpen(false)}>Computers & Laptop</NavLink>
-  <NavLink to="/tablets" onClick={() => setDropdownOpen(false)}>Tablets</NavLink>
-  <NavLink to="/drones" onClick={() => setDropdownOpen(false)}>Drones & Cameras</NavLink>
-  <NavLink to="/audio" onClick={() => setDropdownOpen(false)}>Audio</NavLink>
-  <NavLink to="/mobile" onClick={() => setDropdownOpen(false)}>Mobile</NavLink>
-  <NavLink to="/tv" onClick={() => setDropdownOpen(false)}>T.V & Home Cinema</NavLink>
-  <NavLink to="/wearable-tech" onClick={() => setDropdownOpen(false)}>Wearable Tech</NavLink>
-  {/* <NavLink to="/Sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink> */}
-  <NavLink to="/sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink>
-
-</div>
-
-
+        <NavLink to="/home" onClick={() => setDropdownOpen(false)}>Home</NavLink>
+        <NavLink to="/computer" onClick={() => setDropdownOpen(false)}>Computers & Laptop</NavLink>
+        <NavLink to="/tablets" onClick={() => setDropdownOpen(false)}>Tablets</NavLink>
+        <NavLink to="/drones" onClick={() => setDropdownOpen(false)}>Drones & Cameras</NavLink>
+        <NavLink to="/audio" onClick={() => setDropdownOpen(false)}>Audio</NavLink>
+        <NavLink to="/mobile" onClick={() => setDropdownOpen(false)}>Mobile</NavLink>
+        <NavLink to="/tv" onClick={() => setDropdownOpen(false)}>T.V & Home Cinema</NavLink>
+        <NavLink to="/wearable-tech" onClick={() => setDropdownOpen(false)}>Wearable Tech</NavLink>
+        <NavLink to="/sale" className="sale" onClick={() => setDropdownOpen(false)}>Sale</NavLink>
+      </div>
     </nav>
   );
 };
