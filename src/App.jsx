@@ -22,7 +22,7 @@ import Sale from "./Pages/Sale";
 function AppContent({ user }) {
   const location = useLocation();
 
-  // ✅ अगर ये pages हैं तो header/footer ना दिखाएँ
+  
   const authPages = ["/", "/login", "/signup"];
   const isAuthPage = authPages.includes(location.pathname);
 
@@ -35,7 +35,7 @@ function AppContent({ user }) {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ Protected Routes */}
+       
         <Route
           path="/home"
           element={user ? <Home /> : <Navigate to="/login" />}
