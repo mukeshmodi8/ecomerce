@@ -21,25 +21,26 @@ import ErrorBoundary from "./Pages/ErrorBoundary";
 import Sale from "./Pages/Sale";
 import AuthProvider from "./Pages/AuthProvider";
 import Profile from "./Pages/Profile";
+import SaleProducts from "./Pages/SaleProducts";
 
 function AppContent({ user }) {
   const location = useLocation();
 
-  
+
   const authPages = ["/", "/login", "/signup"];
   const isAuthPage = authPages.includes(location.pathname);
 
   return (
     <>
       {!isAuthPage && <Header />}
-      
+
 
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-       
+
         <Route
           path="/home"
           element={user ? <Home /> : <Navigate to="/login" />}
@@ -72,11 +73,13 @@ function AppContent({ user }) {
           path="/tv"
           element={user ? <TVHomeCinema /> : <Navigate to="/login" />}
         />
-       
+
         <Route
           path="*"
           element={<Navigate to={user ? "/home" : "/login"} />}
         />
+        <Route path="/sale-products" element={<SaleProducts />} />
+
         <Route path="/sale" element={<Sale />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
@@ -100,10 +103,10 @@ function App() {
   return (
     <CartProvider>
       <ErrorBoundary>
-      <AuthProvider>
-        <Router>
-          <AppContent user={user} />
-        </Router>
+        <AuthProvider>
+          <Router>
+            <AppContent user={user} />
+          </Router>
         </AuthProvider>
       </ErrorBoundary>
     </CartProvider>

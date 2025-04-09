@@ -10,6 +10,7 @@ import "./Home.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { cart, addToCart } = useCart();
@@ -68,6 +69,22 @@ const Home = () => {
 
   return (
     <>
+   {/* sale section */}
+
+{/* <section className="sale-section text-white">
+  <div className="overlay">
+    <div className="container text-center py-5">
+      <h1 className="display-4 fw-bold mb-4 animate-title">🔥 Mega Sale is Live! 🔥</h1>
+      <p className="lead mb-4">Up to <span className="highlight">70% OFF</span> on top mobile gadgets and accessories!</p>
+      <div className="d-flex justify-content-center gap-3">
+        <Link to="/sale-products" className="btn btn-danger btn-lg shadow">Shop Now</Link>
+        <a href="#offers" className="btn btn-outline-light btn-lg shadow">View Offers</a>
+      </div>
+    </div>
+  </div>
+</section> */}
+
+
       <section className="banner_slider_wrapper">
         <div className="container-fluid">
           <Slider {...settings}>
