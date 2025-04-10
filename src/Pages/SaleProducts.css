@@ -4,8 +4,8 @@
     object-fit: cover;
   }
   .card-img-top {
-    height: 220px; /* आप चाहें तो इसे अपने हिसाब से कम या ज्यादा कर सकते हैं */
-    object-fit: contain; /* या object-fit: cover; अगर आपको crop करना हो तो */
+    height: 220px;
+    object-fit: contain; 
     background-color: #f8f8f8;
     padding: 10px;
   }
@@ -21,7 +21,7 @@
     width: 100%;
   }
   
-  /* खासतौर पर slick-slider के लिए */
+  
   .slick-slide {
     display: flex !important;
     justify-content: center;

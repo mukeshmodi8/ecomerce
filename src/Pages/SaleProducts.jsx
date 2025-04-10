@@ -42,7 +42,7 @@ const SaleProducts = () => {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 800,
+    speed: 1000,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -68,8 +68,8 @@ const SaleProducts = () => {
       {/* Product Slider */}
       <Slider {...sliderSettings}>
         {products.map((product) => (
-          <div key={product.id} className="px-2">
-            <div className="card h-100 shadow">
+          <div key={product.id} className="px-2 mb-5">
+            <div className="card mb-5 h-100 shadow">
               <img
                 src={product.image}
                 className="card-img-top"
@@ -91,11 +91,12 @@ const SaleProducts = () => {
             </div>
           </div>
         ))}
-      </Slider>
+       
+      </Slider >
 
       {/* Grid Layout */}
-      <h4 className="mt-5 mb-3">✨ Best Picks for You</h4>
-      <div className="row">
+      <h4 className="mt-5 mb-5">✨ Best Picks for You</h4>
+      <div className=" mb-5 row">
         {gridProducts.map((product) => (
           <div key={product.id} className="col-md-4 mb-4">
             <div className="card h-100 shadow">
