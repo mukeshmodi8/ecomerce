@@ -1,12 +1,21 @@
 /* Header Container */
-.header {
+/* .header {
   width: 100%;
-  background: #f8f9fa;
+  background: #fefefe;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
   font-family: Arial, sans-serif;
   position: relative;
   z-index: 999;
+  position: sticky  ;
+} */
+.header {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* Top Section */
