@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+
 import Signup from "./Pages/Signup";
 import Header from "./components/Header";
 import Login from "./Pages/Login";
@@ -23,24 +24,21 @@ import AuthProvider from "./Pages/AuthProvider";
 import Profile from "./Pages/Profile";
 import SaleProducts from "./Pages/SaleProducts";
 import Payment from "./Pages/Payment";
+import AddressForm from "./Pages/AddressForm";
 
 function AppContent({ user }) {
   const location = useLocation();
-
-
   const authPages = ["/", "/login", "/signup"];
   const isAuthPage = authPages.includes(location.pathname);
 
   return (
     <>
       {!isAuthPage && <Header />}
-
-
+      
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-
 
         <Route
           path="/home"
@@ -75,15 +73,18 @@ function AppContent({ user }) {
           element={user ? <TVHomeCinema /> : <Navigate to="/login" />}
         />
 
+        <Route path="/sale-products" element={<SaleProducts />} />
+        <Route path="/sale" element={<Sale />} />
+        <Route path="/profile" element={<Profile />} />
+        
+        {/* Protect routes for Address and Payment */}
+        <Route path="/payment" element={user ? <Payment /> : <Navigate to="/login" />} />
+        <Route path="/address" element={user ? <AddressForm /> : <Navigate to="/login" />} />
+
         <Route
           path="*"
           element={<Navigate to={user ? "/home" : "/login"} />}
         />
-        <Route path="/sale-products" element={<SaleProducts />} />
-
-        <Route path="/sale" element={<Sale />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/payment" element={<Payment />} />
       </Routes>
 
       {!isAuthPage && <Footer />}
@@ -93,14 +94,20 @@ function AppContent({ user }) {
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
+      setLoading(false);  // Once auth state is determined, stop loading
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Optionally display a loading message
+  }
 
   return (
     <CartProvider>

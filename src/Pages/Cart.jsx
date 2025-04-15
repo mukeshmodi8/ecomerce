@@ -3,7 +3,7 @@ import { useCart } from "./CartContext";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cart, removeFromCart } = useCart();
@@ -31,7 +31,7 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    navigate("/payment");
+    navigate("/address"); // पहले एड्रेस पेज पर जाएं
   };
 
   return (
