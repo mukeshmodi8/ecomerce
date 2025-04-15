@@ -22,6 +22,7 @@ import Sale from "./Pages/Sale";
 import AuthProvider from "./Pages/AuthProvider";
 import Profile from "./Pages/Profile";
 import SaleProducts from "./Pages/SaleProducts";
+import Payment from "./Pages/Payment";
 
 function AppContent({ user }) {
   const location = useLocation();
@@ -82,6 +83,7 @@ function AppContent({ user }) {
 
         <Route path="/sale" element={<Sale />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
 
       {!isAuthPage && <Footer />}

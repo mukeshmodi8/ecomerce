@@ -3,9 +3,11 @@ import { useCart } from "./CartContext";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom"; 
 
 const Cart = () => {
   const { cart, removeFromCart } = useCart();
+  const navigate = useNavigate();
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price, 0).toFixed(2);
@@ -26,6 +28,10 @@ const Cart = () => {
         toast.error(`${item.name} removed from cart!`);
       }
     });
+  };
+
+  const handleCheckout = () => {
+    navigate("/payment");
   };
 
   return (
@@ -58,7 +64,9 @@ const Cart = () => {
           </ul>
           <h5 className="text-end">Total: Rs.{getTotalPrice()}</h5>
           <div className="text-center">
-            <button className="btn btn-success px-4">Proceed to Checkout</button>
+            <button className="btn btn-success px-4" onClick={handleCheckout}>
+              Proceed to Checkout
+            </button>
           </div>
         </>
       )}

@@ -1,11 +1,16 @@
-import React, { createContext, useContext, useState } from "react";
-
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
-
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("my-cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("my-cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
     const existingProduct = cart.find((item) => item.id === product.id);
@@ -14,7 +19,7 @@ export const CartProvider = ({ children }) => {
       alert(`${product.name} is already in the cart!`);
     } else {
       setCart([...cart, product]);
-    //   alert(`${product.name} added to cart!`);
+      // alert(`${product.name} added to cart!`);
     }
   };
 
@@ -29,6 +34,5 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
 
 export const useCart = () => useContext(CartContext);
