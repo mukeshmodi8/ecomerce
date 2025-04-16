@@ -3,11 +3,15 @@ import { FaRupeeSign } from "react-icons/fa";
 import { SiPaytm } from "react-icons/si";
 import { MdPhoneIphone } from "react-icons/md";
 import { useCart } from "./CartContext";
+import { useLocation } from "react-router-dom";
 
 const Payment = () => {
   const { cart } = useCart();
-  const [selectedUPI, setSelectedUPI] = useState(null); // State to track selected UPI app
-  const [paymentStatus, setPaymentStatus] = useState("pending"); // Track payment status
+  const location = useLocation();
+  const addressData = location.state || {};
+
+  const [selectedUPI, setSelectedUPI] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState("pending");
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price, 0).toFixed(2);
@@ -15,17 +19,14 @@ const Payment = () => {
 
   const amount = getTotalPrice();
 
-  // Function to handle UPI selection
   const handleUPISelection = (upiApp) => {
     setSelectedUPI(upiApp);
   };
 
-  // Simulate a payment success/failure after 5 seconds (just for demonstration)
   useEffect(() => {
     if (paymentStatus === "pending" && selectedUPI) {
       setTimeout(() => {
-        // Simulate success or failure
-        setPaymentStatus("success"); // You can also set it to "failed" to simulate failure
+        setPaymentStatus("success"); // Simulated success
       }, 5000);
     }
   }, [selectedUPI, paymentStatus]);
@@ -38,8 +39,7 @@ const Payment = () => {
       </div>
 
       <div className="row justify-content-center align-items-center">
-        {/* Google Pay */}
-        <div className="col-md-3 text-center" onClick={() => handleUPISelection('googlePay')}>
+        <div className="col-md-3 text-center" onClick={() => handleUPISelection("googlePay")}>
           <img
             src="https://png.pngtree.com/png-clipart/20230916/original/pngtree-google-pay-payment-icon-vector-png-image_12256719.png"
             alt="Google Pay"
@@ -49,8 +49,7 @@ const Payment = () => {
           <p className="mt-3"><strong>Pay via Google Pay</strong></p>
         </div>
 
-        {/* PhonePe */}
-        <div className="col-md-3 text-center" onClick={() => handleUPISelection('phonePe')}>
+        <div className="col-md-3 text-center" onClick={() => handleUPISelection("phonePe")}>
           <img
             src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png"
             alt="PhonePe"
@@ -60,8 +59,7 @@ const Payment = () => {
           <p className="mt-3"><strong>Pay via PhonePe</strong></p>
         </div>
 
-        {/* Other UPI */}
-        <div className="col-md-3 text-center" onClick={() => handleUPISelection('otherUPI')}>
+        <div className="col-md-3 text-center" onClick={() => handleUPISelection("otherUPI")}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/2560px-UPI-Logo-vector.svg.png"
             alt="Other UPI"
@@ -73,7 +71,6 @@ const Payment = () => {
       </div>
 
       <div className="row justify-content-center align-items-center mt-4">
-        {/* Display QR Code based on selected UPI app */}
         {selectedUPI && (
           <div className="col-md-12 text-center">
             <img
@@ -89,7 +86,6 @@ const Payment = () => {
       </div>
 
       <div className="row justify-content-center align-items-center mt-4">
-        {/* Payment Summary */}
         <div className="col-md-5 bg-light p-4 rounded shadow">
           <h4 className="mb-4 text-primary d-flex align-items-center">
             <SiPaytm className="me-2" /> Paytm Payment Details
@@ -105,21 +101,40 @@ const Payment = () => {
               <strong>Amount:</strong> <FaRupeeSign className="text-success" /> {amount}
             </li>
             <li className="list-group-item">
-              <strong>Status:</strong> <span className={paymentStatus === "success" ? "text-success" : "text-warning"}>{paymentStatus === "pending" ? "Awaiting Payment..." : paymentStatus === "success" ? "Payment Successful!" : "Payment Failed!"}</span>
+              <strong>Status:</strong>{" "}
+              <span className={paymentStatus === "success" ? "text-success" : "text-warning"}>
+                {paymentStatus === "pending" ? "Awaiting Payment..." : paymentStatus === "success" ? "Payment Successful!" : "Payment Failed!"}
+              </span>
             </li>
           </ul>
           <div className="text-center mt-3">
-            <button className={`btn ${paymentStatus === "success" ? "btn-success" : "btn-warning"} px-4`} disabled={paymentStatus !== "pending"}>
+            <button
+              className={`btn ${paymentStatus === "success" ? "btn-success" : "btn-warning"} px-4`}
+              disabled={paymentStatus !== "pending"}
+            >
               {paymentStatus === "pending" ? "Waiting for Payment..." : paymentStatus === "success" ? "Payment Successful!" : "Try Again"}
             </button>
           </div>
         </div>
       </div>
 
+      {/* ✅ Delivery Address Section */}
+      <div className="row mt-4">
+        <div className="col-md-6 bg-white p-4 rounded shadow">
+          <h4 className="mb-3 text-primary">📍 Delivery Address</h4>
+          <p><strong>Name:</strong> {addressData.name}</p>
+          <p><strong>Phone:</strong> {addressData.phone}</p>
+          <p><strong>Address:</strong> {addressData.address}, {addressData.city} - {addressData.pincode}</p>
+          {addressData.instructions && (
+            <p><strong>Instructions:</strong> {addressData.instructions}</p>
+          )}
+        </div>
+      </div>
+
       {/* Order Summary Section */}
       <div className="row mt-4">
         <div className="col-12">
-          <h4>Order Summary:</h4>
+          <h4>🛒 Order Summary:</h4>
           <ul className="list-group">
             {cart.map((item) => (
               <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">

@@ -20,11 +20,10 @@ const AddressForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can store the form data to a global state or handle as needed
-    console.log(formData); // Just logging the form data for now
+    console.log(formData);
 
-    // Navigate to the Payment page after submission
-    navigate("/payment"); 
+    // 👉 Navigate to Payment page and pass address data via state
+    navigate("/payment", { state: formData });
   };
 
   return (
