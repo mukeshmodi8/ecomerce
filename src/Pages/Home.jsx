@@ -69,25 +69,11 @@ const Home = () => {
 
   return (
     <>
-   {/* sale section */}
-
-{/* <section className="sale-section text-white">
-  <div className="overlay">
-    <div className="container text-center py-5">
-      <h1 className="display-4 fw-bold mb-4 animate-title">🔥 Mega Sale is Live! 🔥</h1>
-      <p className="lead mb-4">Up to <span className="highlight">70% OFF</span> on top mobile gadgets and accessories!</p>
-      <div className="d-flex justify-content-center gap-3">
-        <Link to="/sale-products" className="btn btn-danger btn-lg shadow">Shop Now</Link>
-        <a href="#offers" className="btn btn-outline-light btn-lg shadow">View Offers</a>
-      </div>
-    </div>
-  </div>
-</section> */}
-
-
+      {/* Banner Slider Section */}
       <section className="banner_slider_wrapper">
         <div className="container-fluid">
           <Slider {...settings}>
+            {/* First Slider Item - Summer Sale */}
             <div className="row d-flex align-items-center mx-0 mt-5" style={{ height: "100vh" }}>
               <div className="col-lg-6 col-md-12 text-center text-lg-start p-5">
                 <h6 className="text-uppercase text-primary">Limited time offer!</h6>
@@ -100,6 +86,7 @@ const Home = () => {
               </div>
             </div>
 
+            {/* Second Slider Item - iPhone */}
             <div className="row d-flex align-items-center flex-row-reverse mx-0" style={{ height: "100vh" }}>
               <div className="col-lg-6 col-md-12 p-0">
                 <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L.jpg" alt="iPhone" className="img-fluid w-100 h-100 slider-img" style={{ height: "100vh", objectFit: "cover" }} />
@@ -112,6 +99,7 @@ const Home = () => {
               </div>
             </div>
 
+            {/* Third Slider Item - boAt Speaker */}
             <div className="row d-flex align-items-center mx-0 mt-5" style={{ height: "80vh" }}>
               <div className="col-lg-6 col-md-12 text-center text-lg-start p-5">
                 <h6 className="text-uppercase text-success">Limited time offer!</h6>
@@ -127,6 +115,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* About Section */}
       <section className="about-section container my-5 py-5">
         <div className="row align-items-center mx-0">
           <div className="col-md-6 mb-4 mb-md-0">
@@ -140,6 +129,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Product Section */}
       <section className="product container my-5">
         <h2 className="text-center mb-4 text-primary">Arbuda Mobile Products</h2>
         <div className="row mx-0">
@@ -164,6 +154,7 @@ const Home = () => {
       <ToastContainer position="top-center" autoClose={2000} />
       <Feedback />
 
+      {/* Customer Testimonials */}
       {(userReviews.length > 0 || testimonials.length > 0) && (
         <section className="testimonials-section">
           <h2 className="section-title">Customer Reviews</h2>
@@ -184,19 +175,17 @@ const Home = () => {
         </section>
       )}
 
+      {/* Add Review Section */}
       <div className="add-review container my-5">
         <h2 className="text-center mb-4">⭐ Add Your Review</h2>
         <form className="glass-form" onSubmit={handleSubmit}>
           <input type="text" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} required />
-          <textarea placeholder="Write your review here..." value={review} onChange={(e) => setReview(e.target.value)} required />
-          <select value={rating} onChange={(e) => setRating(e.target.value)}>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <option key={star} value={star}>{star} Star</option>
-            ))}
-          </select>
-          <button type="submit" className="btn btn-success mt-3">
-            <i className="fa fa-paper-plane me-2"></i>Submit Review
-          </button>
+          <textarea placeholder="Write your review..." value={review} onChange={(e) => setReview(e.target.value)} required />
+          <div className="rating">
+            <label>Rating:</label>
+            <input type="number" value={rating} onChange={(e) => setRating(e.target.value)} max={5} min={1} />
+          </div>
+          <button type="submit" className="btn btn-primary">Submit Review</button>
         </form>
       </div>
     </>
